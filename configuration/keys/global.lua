@@ -6,11 +6,42 @@ local hotkeys_popup = require('awful.hotkeys_popup').widget
 local modkey = require('configuration.keys.mod').modKey
 local altkey = require('configuration.keys.mod').altKey
 local apps = require('configuration.apps')
+local function move_client_up(c)
+  if c then
+      local clients = awful.client.tiled(c.screen)
+      local idx = nil
+      for i, client in ipairs(clients) do
+          if client == c then
+              idx = i
+              break
+          end
+      end
+      if idx and idx > 1 then
+          clients[idx]:swap(clients[idx - 1])
+      end
+  end
+end
+
+local function move_client_down(c)
+  if c then
+      local clients = awful.client.tiled(c.screen)
+      local idx = nil
+      for i, client in ipairs(clients) do
+          if client == c then
+              idx = i
+              break
+          end
+      end
+      if idx and idx < #clients then
+          clients[idx]:swap(clients[idx + 1])
+      end
+  end
+end
 -- Key bindings
 local globalKeys =
   awful.util.table.join(
   -- Hotkeys
-  awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'Show help', group = 'awesome'}),
+  awful.key({modkey}, '0', hotkeys_popup.show_help, {description = 'Show help', group = 'awesome'}),
   -- Tag browsing
   awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
   awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
@@ -18,6 +49,8 @@ local globalKeys =
   awful.key({altkey, 'Control'}, 'Down', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
   awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
   -- Default client focus
+  awful.key({ modkey,'Control'}, "k", function () move_client_up(client.focus) end),
+  awful.key({ modkey,'Control'}, "j", function () move_client_down(client.focus) end),
   awful.key(
     {modkey},
     'd',

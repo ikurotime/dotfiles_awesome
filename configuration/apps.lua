@@ -11,12 +11,12 @@ return {
     terminal = 'terminator',
     rofi = rofi_command,
     lock = 'i3lock-fancy',
-    quake = 'terminator',
+    quake = 'alacritty',
     screenshot = 'flameshot screen -p ~/Pictures',
     region_screenshot = 'flameshot gui -p ~/Pictures',
-    delayed_screenshot = 'flameshot screen -p ~/Pictures -d 5000',
+    delayed_screenshot = 'flameshot screen -p  ~/Pictures -d 5000',
     browser = 'brave-browser',
-    editor = 'gedit', -- gui text editor
+    editor = 'code', -- gui text editor
     social = 'discord',
     game = rofi_command,
     files = 'nautilus',
@@ -24,7 +24,7 @@ return {
   },
   -- List of apps to start once on start-up
   run_on_start_up = {
-    'compton --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
+    --'compton --config ' .. filesystem.get_configuration_dir() .. '/configuration/compton.conf',
     'nm-applet --indicator', -- wifi
     'pnmixer', -- shows an audiocontrol applet in systray when installed.
     --'blueberry-tray', -- Bluetooth tray icon
@@ -34,10 +34,12 @@ return {
      'flameshot',
      'synology-drive -minimized',
      'steam -silent',
-    'feh --randomize --bg-fill ~/.wallpapers/*',
+    --'feh --randomize --bg-fill ~/.wallpapers/*',
+    'feh --bg-scale ~/Downloads/Space_Spiral.png',
     '/usr/bin/variety',
     -- Add applications that need to be killed between reloads
     -- to avoid multipled instances, inside the awspawn script
-    '~/.config/awesome/configuration/awspawn' -- Spawn "dirty" apps that can linger between sessions
+    '~/.config/awesome/configuration/awspawn', -- Spawn "dirty" apps that can linger between sessions
+    'xrandr --output HDMI-0 --mode 1920x1080 --rate 240' --Set 240hz
   }
 }
